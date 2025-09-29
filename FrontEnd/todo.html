@@ -56,6 +56,23 @@
 
   <script>
     let todos = [];
+
+    document.addEventListener('DOMContentLoaded', async()=>{
+      let data = await fetch('http://localhost:3000',{
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+      })
+      let originalformat = await data.json()
+      console.log(originalformat);
+      
+    });
+
+
+    originalformat.map(item=>{
+      console.log('line 72:', item);
+      todos.push({ID: item.Id, text:item.itemDescription, editing:false})
+      renderTodos();
+    })
     function renderTodos() {
       const list = document.getElementById('todo-list');
       list.innerHTML = '';
